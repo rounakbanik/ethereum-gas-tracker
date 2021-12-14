@@ -66,31 +66,35 @@ function App() {
     <div className='main-container'>
       <h1>EIP-1559 Gas Tracker</h1>
       {!blockHistory && <p>Data is loading...</p>}
+      {avgGas && avgBlockVolume && <h3>
+        <span className='gas'>{avgGas} Gwei</span> | <span className='vol'>{avgBlockVolume}% Volume</span>
+      </h3>}
       {blockHistory && <table>
-        <tr>
-          <th>Block Number</th>
-          <th>Base Fee</th>
-          <th>Reward (25%)</th>
-          <th>Reward (50%)</th>
-          <th>Reward (75%)</th>
-          <th>Gas Used</th>
-        </tr>
-        {blockHistory.map(block => {
-          return (
-            <tr key={block.blockNumber}>
-              <td>{block.blockNumber}</td>
-              <td>{block.baseFeePerGas}</td>
-              <td>{block.reward[0]}</td>
-              <td>{block.reward[1]}</td>
-              <td>{block.reward[2]}</td>
-              <td>{block.gasUsedRatio}%</td>
-            </tr>
-          )
-        })}
+        <thead>
+          <tr>
+            <th>Block Number</th>
+            <th>Base Fee</th>
+            <th>Reward (25%)</th>
+            <th>Reward (50%)</th>
+            <th>Reward (75%)</th>
+            <th>Gas Used</th>
+          </tr>
+        </thead>
+        <tbody>
+          {blockHistory.map(block => {
+            return (
+              <tr key={block.blockNumber}>
+                <td>{block.blockNumber}</td>
+                <td>{block.baseFeePerGas}</td>
+                <td>{block.reward[0]}</td>
+                <td>{block.reward[1]}</td>
+                <td>{block.reward[2]}</td>
+                <td>{block.gasUsedRatio}%</td>
+              </tr>
+            )
+          })}
+        </tbody>
       </table>}
-      {avgGas && <p><b>Average Gas Price:</b> {avgGas} Gwei</p>}
-      {avgBlockVolume && <p><b>Average Block Volume:</b> {avgBlockVolume}%</p>}
-
     </div>
   );
 }
